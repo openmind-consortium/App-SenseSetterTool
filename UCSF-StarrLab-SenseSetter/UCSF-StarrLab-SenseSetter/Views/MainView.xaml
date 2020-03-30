@@ -4,9 +4,417 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UCSF_StarrLab_SenseSetter.Views"
-        mc:Ignorable="d"
-        Title="MainView" Height="450" Width="800">
+        mc:Ignorable="d" WindowState="Maximized"
+        Title="Sense Setter"  Height="600" Width="1200" FontSize="15">
+   
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Row 0-->
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding SuccessMessageInSenseSettings}" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,20,0"/>
+        <Button x:Name="SaveConfigStartStreamButton" IsEnabled="{Binding SenseButtonEnabled}" Content="Save + Update" Background="White" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="0" Margin="15, 0, 15, 3" VerticalAlignment="Center" HorizontalContentAlignment="Center" ToolTipService.ToolTip="Saves the current configuration to file, loads it up and starts streaming with that configuration" ToolTipService.Placement="Mouse"/>
+        <TextBlock Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="2" Text="TD Sampling Rate" FontSize="12"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0,20,0"/>
+        <Border x:Name="border_tdch0" Grid.Column="6" Grid.ColumnSpan="8" Grid.Row ="0" Grid.RowSpan="5" Background="LightGray" CornerRadius="0, 0, 20, 20" Margin="5, 5, 5, 0"/>
+        <Button x:Name="TimeDomainCh0SenseButton" BorderBrush="{Binding TimeDomainCh0SenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="{Binding TimeDomainCh0SenseText}" Background="{Binding TDCh0SenseButtonColor}" Grid.Column="6" Grid.ColumnSpan="8" Grid.Row="0" Margin="5, 0, 5, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+
+        <!--Row 1-->
+        <Button x:Name="ReloadConfigButton" IsEnabled="{Binding SenseButtonEnabled}" Content="Load Original Config" Background="White" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="15, 3, 15, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center" ToolTipService.ToolTip="Reloads the most recent saved configuration or configuration upon start of application (if no save occurred since start of application)" ToolTipService.Placement="Mouse"/>
+        <Button x:Name="SaveConfigButton" IsEnabled="{Binding SenseButtonEnabled}" Content="Save" Background="White" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Margin="15, 3, 15, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center" ToolTipService.ToolTip="Saves the current configuration to file but does not start streaming with that configuration" ToolTipService.Placement="Mouse"/>
+        <Border BorderBrush="{Binding TDSampleRateCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="2" Margin="20, 0, 20, 3">
+            <ComboBox  x:Name="TDSampleRateCB" SelectedItem="{Binding Path=SelectedTDRate, Mode=TwoWay}"/>
+        </Border>
+        <TextBlock Grid.Column="6" Grid.Row="1" Text="+"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20, 0, 0, 0"/>
+        <Border BorderBrush="{Binding TDCh0PosInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="7" Grid.Row="1" Margin="5, 0, 5, 0">
+            <ComboBox x:Name="TDCh0PosInputCB" SelectedItem="{Binding Path=SelectedTDCh0PosInput, Mode=TwoWay}" FontSize="20"/>
+        </Border>
+        <TextBlock Grid.Column="8" Grid.Row="1" Text="HPF1"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20, 0, 0, 0"/>
+        <Border BorderBrush="{Binding TDCh0HPF1InputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="9" Grid.Row="1" Margin="5, 0, 5, 0">
+            <ComboBox x:Name="TDCh0HPF1InputCB" SelectedItem="{Binding Path=SelectedTDCh0HPF1Input, Mode=TwoWay}" />
+        </Border>
+        <Button x:Name="TDCh0PowerBand0SenseButton" BorderBrush="{Binding TDCh0PowerBand0SenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False"  Content="PowerBand0" Background="{Binding TDCh0PB0SenseButtonColor}" Grid.Column="10" Grid.ColumnSpan="2" Grid.Row="1" Margin="10, 0, 10, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Button x:Name="TDCh0PowerBand1SenseButton" BorderBrush="{Binding TDCh0PowerBand1SenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False"  Content="PowerBand1" Background="{Binding TDCh0PB1SenseButtonColor}" Grid.Column="12" Grid.ColumnSpan="2" Grid.Row="1" Margin="10, 0, 10, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+
+        <!--Row 2-->
+        <Border x:Name="border_sense" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row ="2" Grid.RowSpan="10" Background="LightGray" CornerRadius="20" Margin="5, 5, 5, 25"/>
+        <Border x:Name="border_stream" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row ="2" Grid.RowSpan="11" Background="LightGray" CornerRadius="20" Margin="5, 5, 5, 25"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Text="Sense Options" FontSize="12" FontWeight="Bold" Background="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0,20,0"/>
+        <TextBlock Grid.Column="3" Grid.Row="2"  Grid.ColumnSpan="3" Text="Stream Options" FontSize="12" FontWeight="Bold" Background="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0,20,0"/>
+        <TextBlock Grid.Column="8" Grid.Row="2" Text="LPF1"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh0LPF1InputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="9" Grid.Row="2" Margin="5, 0, 5, 0">
+            <ComboBox x:Name="TDCh0LPF1InputCB" SelectedItem="{Binding Path=SelectedTDCh0LPF1Input, Mode=TwoWay}"/>
+        </Border>
+        <TextBlock Grid.Column="10" Grid.Row="2" Text="Lower(Hz)" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh0PB0LowInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="11" Grid.Row="2" Margin="5, 0, 10, 0">
+            <ComboBox x:Name="TDCh0PB0LowerInputCB" SelectedItem="{Binding Path=SelectedTDCh0PB0LowerInput, Mode=TwoWay}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </Border>
+        <TextBlock Grid.Column="12" Grid.Row="2" Text="Lower(Hz)" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh0PB1LowInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="13" Grid.Row="2"  Margin="5, 0, 10, 0">
+            <ComboBox x:Name="TDCh0PB1LowerInputCB" SelectedItem="{Binding Path=SelectedTDCh0PB1LowerInput, Mode=TwoWay}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </Border>
+
+        <!--Row 3-->
+        <Button x:Name="TimeDomainSenseButton" BorderBrush="{Binding TimeDomainSenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="Time Domain" Background="{Binding TDSenseButtonColor}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0">
+
+        </Button>
+        <Button x:Name="TimeDomainStreamButton" BorderBrush="{Binding TimeDomainStreamBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="Time Domain" Background="{Binding TDStreamButtonColor}" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="3" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
+        <TextBlock Grid.Column="6" Grid.Row="3" Text="-"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh0NegInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="7" Grid.Row="3"  Margin="5, 0, 5, 0">
+            <ComboBox  x:Name="TDCh0NegInputCB" SelectedItem="{Binding Path=SelectedTDCh0NegInput, Mode=TwoWay}" FontSize="20"/>
+        </Border>
+        <TextBlock Grid.Column="8" Grid.Row="3" Text="LPF2"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh0LPF2InputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="9" Grid.Row="3" Margin="5, 0, 5, 0">
+            <ComboBox x:Name="TDCh0LPF2InputCB" SelectedItem="{Binding Path=SelectedTDCh0LPF2Input, Mode=TwoWay}"/>
+        </Border>
+        <TextBlock Grid.Column="10" Grid.Row="3" Text="Upper(Hz)" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh0PB0UpperInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="11" Grid.Row="3" Margin="5, 0, 10, 0">
+            <ComboBox x:Name="TDCh0PB0UpperInputCB" SelectedItem="{Binding Path=SelectedTDCh0PB0UpperInput, Mode=TwoWay}" >
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </Border>
+        <TextBlock Grid.Column="12" Grid.Row="3" Text="Upper(Hz)" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh0PB1UpperInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="13" Grid.Row="3" Margin="5, 0, 10, 0">
+            <ComboBox x:Name="TDCh0PB1UpperInputCB" SelectedItem="{Binding Path=SelectedTDCh0PB1UpperInput, Mode=TwoWay}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </Border>
+
+        <!--Row 4-->
+        <Button x:Name="FFTSenseButton" BorderBrush="{Binding FFTSenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="FFT" Background="{Binding FFTSenseButtonColor}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
+        <Button x:Name="FFTStreamButton" BorderBrush="{Binding FFTStreamBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="FFT" Background="{Binding FFTStreamButtonColor}" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="4" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
+
+        <!--Row 5-->
+        <Button x:Name="PowerSenseButton" BorderBrush="{Binding PowerSenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False"  Content="Power" Background="{Binding PowerSenseButtonColor}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
+        <Button x:Name="PowerStreamButton" BorderBrush="{Binding PowerStreamBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False"  Content="Power" Background="{Binding PowerStreamButtonColor}" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="5" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
+        <Border x:Name="border_tdch1" Grid.Column="6" Grid.ColumnSpan="8" Grid.Row ="5" Grid.RowSpan="5" Background="LightGray" CornerRadius="0, 0, 20 , 20" Margin="5, 5, 5, 0"/>
+        <Button x:Name="TimeDomainCh1SenseButton" BorderBrush="{Binding TimeDomainCh1SenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="{Binding TimeDomainCh1SenseText}" Background="{Binding TDCh1SenseButtonColor}" Grid.Column="6" Grid.ColumnSpan="8" Grid.Row="5" Margin="5, 0, 5, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+
+        <!--Row 6-->
+        <Button x:Name="LD0SenseButton" BorderBrush="{Binding LD0SenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False"  Content="LD0" Background="{Binding LD0SenseButtonColor}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="6" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
+        <Button x:Name="AccStreamButton" BorderBrush="{Binding AccStreamBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False"  Content="Accelerometry" Background="{Binding AccStreamButtonColor}" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="6" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
+        <TextBlock Grid.Column="6" Grid.Row="6" Text="+"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh1PosInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="7" Grid.Row="6" Margin="5, 0, 5, 0">
+            <ComboBox x:Name="TDCh1PosInputCB" SelectedItem="{Binding Path=SelectedTDCh1PosInput, Mode=TwoWay}" FontSize="20"/>
+        </Border>
+        <TextBlock Grid.Column="8" Grid.Row="6" Text="HPF1"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh1HPF1InputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="9" Grid.Row="6" Margin="5, 0, 5, 0">
+            <ComboBox x:Name="TDCh1HPF1InputCB" SelectedItem="{Binding Path=SelectedTDCh1HPF1Input, Mode=TwoWay}"/>
+        </Border>
+        <Button x:Name="TDCh1PowerBand0SenseButton" BorderBrush="{Binding TDCh1PowerBand0SenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="PowerBand0" Background="{Binding Ch1PB0SenseButtonColor}" Grid.Column="10" Grid.ColumnSpan="2" Grid.Row="6" Margin="10, 0, 10, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Button x:Name="TDCh1PowerBand1SenseButton" BorderBrush="{Binding TDCh1PowerBand1SenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="PowerBand1" Background="{Binding Ch1PB1SenseButtonColor}" Grid.Column="12" Grid.ColumnSpan="2" Grid.Row="6" Margin="10, 0, 10, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+
+        <!--Row 7-->
+        <Button x:Name="LD1SenseButton" BorderBrush="{Binding LD1SenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False"  Content="LD1" Background="{Binding LD1SenseButtonColor}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="7" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
+        <Button x:Name="AdaptiveStreamButton" BorderBrush="{Binding AdaptiveStreamBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False"  Content="Adaptive Therapy" Background="{Binding AdaptherapyStreamButtonColor}" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="7" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
+        <TextBlock Grid.Column="8" Grid.Row="7" Text="LPF1"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh1LPF1InputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="9" Grid.Row="7" Margin="5, 0, 5, 0">
+            <ComboBox x:Name="TDCh1LPF1InputCB" SelectedItem="{Binding Path=SelectedTDCh1LPF1Input, Mode=TwoWay}"/>
+        </Border>
+        <TextBlock Grid.Column="10" Grid.Row="7" Text="Lower(Hz)" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh1PB0LowerInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="11" Grid.Row="7" Margin="5, 0, 10, 0">
+            <ComboBox x:Name="TDCh1PB0LowerInputCB" SelectedItem="{Binding Path=SelectedTDCh1PB0LowerInput, Mode=TwoWay}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </Border>
+        <TextBlock Grid.Column="12" Grid.Row="7" Text="Lower(Hz)" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh1PB1LowerInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="13" Grid.Row="7" Margin="5, 0, 10, 0">
+            <ComboBox x:Name="TDCh1PB1LowerInputCB" SelectedItem="{Binding Path=SelectedTDCh1PB1LowerInput, Mode=TwoWay}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </Border>
+
+        <!--Row 8-->
+        <Button x:Name="AdaptiveStateSenseButton" BorderBrush="{Binding AdaptiveStateSenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False"  Content="Adaptive State" Background="{Binding AdaptiveStateSenseButtonColor}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="8" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
+        <Button x:Name="AdaptiveStateStreamButton" BorderBrush="{Binding AdaptiveStateStreamBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False"  Content="Adaptive State" Background="{Binding AdaptiveStateStreamButtonColor}" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="8" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
+        <TextBlock Grid.Column="6" Grid.Row="8" Text="-"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh1NegInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="7" Grid.Row="8" Margin="5, 0, 5, 0">
+            <ComboBox x:Name="TDCh1NegInputCB" SelectedItem="{Binding Path=SelectedTDCh1NegInput, Mode=TwoWay}" FontSize="20"/>
+        </Border>
+        <TextBlock Grid.Column="8" Grid.Row="8" Text="LPF2"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh1LPF2InputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="9" Grid.Row="8" Margin="5, 0, 5, 0">
+            <ComboBox x:Name="TDCh1LPF2InputCB" SelectedItem="{Binding Path=SelectedTDCh1LPF2Input, Mode=TwoWay}"/>
+        </Border>
+        <TextBlock Grid.Column="10" Grid.Row="8" Text="Upper(Hz)" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh1PB0UpperInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="11" Grid.Row="8" Margin="5, 0, 10, 0">
+            <ComboBox x:Name="TDCh1PB0UpperInputCB" SelectedItem="{Binding Path=SelectedTDCh1PB0UpperInput, Mode=TwoWay}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </Border>
+        <TextBlock Grid.Column="12" Grid.Row="8" Text="Upper(Hz)" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh1PB1UpperInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="13" Grid.Row="8" Margin="5, 0, 10, 0">
+            <ComboBox x:Name="TDCh1PB1UpperInputCB" SelectedItem="{Binding Path=SelectedTDCh1PB1UpperInput, Mode=TwoWay}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </Border>
+
+        <!--Row 9-->
+        <Button x:Name="LoopRecSenseButton" BorderBrush="{Binding LoopRecSenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False"  Content="Loop Recording" Background="{Binding LoopRecSenseButtonColor}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="9" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
+        <Button x:Name="EventMarkerStreamButton" BorderBrush="{Binding EventMarkerStreamBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False"  Content="Event Marker" Background="{Binding EventStreamButtonColor}" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="9" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
+
+        <!--Row 10-->
+        <Button x:Name="TimeStampStreamButton" BorderBrush="{Binding TimeStampStreamBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False"  Content="Time Stamp" Background="{Binding TimeStampStreamButtonColor}" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="10" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
+        <Border x:Name="border_tdch2" Grid.Column="6" Grid.ColumnSpan="8" Grid.Row ="10" Grid.RowSpan="5" Background="LightGray" CornerRadius="0, 0, 20 , 20" Margin="5, 5, 5, 0"/>
+        <Button x:Name="TimeDomainCh2SenseButton" BorderBrush="{Binding TimeDomainCh2SenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="{Binding TimeDomainCh2SenseText}" Background="{Binding TDCh2SenseButtonColor}" Grid.Column="6" Grid.ColumnSpan="8" Grid.Row="10" Margin="5, 0, 5, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+
+        <!--Row 11-->
+        <Border x:Name="border_fft" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row ="11" Grid.RowSpan="10" Background="LightGray" CornerRadius="20" Margin="5, 25, 5, 25"/>
+        <TextBlock Grid.Column="6" Grid.Row="11" Text="+"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh2PosInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="7" Grid.Row="11" Margin="5, 0, 5, 0">
+            <ComboBox x:Name="TDCh2PosInputCB" SelectedItem="{Binding Path=SelectedTDCh2PosInput, Mode=TwoWay}" FontSize="20"/>
+        </Border>
+        <TextBlock Grid.Column="8" Grid.Row="11" Text="HPF1"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh02HPF1InputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="9" Grid.Row="11" Margin="5, 0, 5, 0">
+            <ComboBox x:Name="TDCh02HPF1InputCB" SelectedItem="{Binding Path=SelectedTDCh2HPF1Input, Mode=TwoWay}"/>
+        </Border>
+        <Button x:Name="TDCh2PowerBand0SenseButton" BorderBrush="{Binding TDCh2PowerBand0SenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="PowerBand0" Background="{Binding TDCh2PB0ButtonColor}" Grid.Column="10" Grid.ColumnSpan="2" Grid.Row="11" Margin="10, 0, 10, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Button x:Name="TDCh2PowerBand1SenseButton" BorderBrush="{Binding TDCh2PowerBand1SenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="PowerBand1" Background="{Binding TDCh2PB1ButtonColor}" Grid.Column="12" Grid.ColumnSpan="2" Grid.Row="11" Margin="10, 0, 10, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+
+        <!--Row 12-->
+        <TextBlock Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" Text="FFT" FontSize="12" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0,20,0"/>
+        <Border x:Name="border_accelerometry" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row ="12" Grid.RowSpan="7" Background="LightGray" CornerRadius="20" Margin="5, 25, 5, 25"/>
+        <Border x:Name="border_misc" Grid.Column="4" Grid.ColumnSpan="2" Grid.Row ="12" Grid.RowSpan="9" Background="LightGray" CornerRadius="20" Margin="5, 25, 5, 25"/>
+        <TextBlock Grid.Column="8" Grid.Row="12" Text="LPF1"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh2LPF1InputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="9" Grid.Row="12" Margin="5, 0, 5, 0">
+            <ComboBox x:Name="TDCh2LPF1InputCB" SelectedItem="{Binding Path=SelectedTDCh2LPF1Input, Mode=TwoWay}"/>
+        </Border>
+        <TextBlock Grid.Column="10" Grid.Row="12" Text="Lower(Hz)" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh2PB0LowerInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="11" Grid.Row="12" Margin="5, 0, 10, 0">
+            <ComboBox x:Name="TDCh2PB0LowerInputCB" SelectedItem="{Binding Path=SelectedTDCh2PB0LowerInput, Mode=TwoWay}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </Border>
+        <TextBlock Grid.Column="12" Grid.Row="12" Text="Lower(Hz)" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh2PB1LowerInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="13" Grid.Row="12" Margin="5, 0, 10, 0">
+            <ComboBox x:Name="TDCh2PB1LowerInputCB" SelectedItem="{Binding Path=SelectedTDCh2PB1LowerInput, Mode=TwoWay}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </Border>
+
+        <!--Row 13-->
+        <TextBlock Grid.Column="0" Grid.Row="13" Text="Channel" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+        <Border BorderBrush="{Binding FFTChannelCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="1" Grid.Row="13" Margin="0, 5, 10, 0">
+            <ComboBox x:Name="FFTChannelCB" SelectedItem="{Binding Path=SelectedFFTChannel, Mode=TwoWay}"/>
+        </Border>
+        <TextBlock Grid.Column="4" Grid.Row="13" Grid.ColumnSpan="2" Text="Miscellaneous" FontSize="12" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0,20,0"/>
+        <TextBlock Grid.Column="6" Grid.Row="13" Text="-"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh2NegInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="7" Grid.Row="13" Margin="5, 0, 5, 0">
+            <ComboBox x:Name="TDCh2NegInputCB" SelectedItem="{Binding Path=SelectedTDCh2NegInput, Mode=TwoWay}" FontSize="20"/>
+        </Border>
+        <TextBlock Grid.Column="8" Grid.Row="13" Text="LPF2"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh2LPF2InputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="9" Grid.Row="13" Margin="5, 0, 5, 0">
+            <ComboBox x:Name="TDCh2LPF2InputCB" SelectedItem="{Binding Path=SelectedTDCh2LPF2Input, Mode=TwoWay}"/>
+        </Border>
+        <TextBlock Grid.Column="10" Grid.Row="13" Text="Upper(Hz)" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh2PB0UpperInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="11" Grid.Row="13" Margin="5, 0, 10, 0">
+            <ComboBox x:Name="TDCh2PB0UpperInputCB" SelectedItem="{Binding Path=SelectedTDCh2PB0UpperInput, Mode=TwoWay}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </Border>
+        <TextBlock Grid.Column="12" Grid.Row="13" Text="Upper(Hz)" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh2PB1UpperInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="13" Grid.Row="13" Margin="5, 0, 10, 0">
+            <ComboBox x:Name="TDCh2PB1UpperInputCB" SelectedItem="{Binding Path=SelectedTDCh2PB1UpperInput, Mode=TwoWay}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </Border>
+
+        <!--Row 14-->
+        <TextBlock Grid.Column="0" Grid.Row="14" Text="Size(pt)" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+        <Border BorderBrush="{Binding FFTSizeCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}"  Grid.Column="1" Grid.Row="14" Margin="0, 5, 10, 0">
+            <ComboBox x:Name="FFTSizeCB" SelectedItem="{Binding Path=SelectedFFTSize, Mode=TwoWay}"/>
+        </Border>
+        <Button x:Name="AccelOnOffButton" BorderBrush="{Binding AccelOnOffBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="Accelerometry" Background="{Binding AccelOnOffButtonColor}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="14" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
+        <TextBlock Grid.Column="4" Grid.Row="14" Text="Stream &#10;Rate(ms)" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+        <Border BorderBrush="{Binding MiscSampleRateCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="5" Grid.Row="14" Margin="5, 0, 10, 0">
+            <ComboBox x:Name="MiscSampleRateCB" SelectedItem="{Binding Path=SelectedMiscSampleRate, Mode=TwoWay}"/>
+        </Border>
+
+        <!--Row 15-->
+        <TextBlock Grid.Column="0" Grid.Row="15" Text="Win load(%)" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+        <Border BorderBrush="{Binding FFTWindowLoadCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="1" Grid.Row="15" Margin="0, 5, 10, 0">
+            <ComboBox x:Name="FFTWindowLoadCB" SelectedItem="{Binding Path=SelectedFFTWindowLoad, Mode=TwoWay}"/>
+        </Border>
+        <TextBlock Grid.Column="2" Grid.Row="15" Grid.ColumnSpan="2" Text="Sample Rate" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+        <Border x:Name="border_tdch3" Grid.Column="6" Grid.ColumnSpan="8" Grid.Row ="15" Grid.RowSpan="5" Background="LightGray" CornerRadius="0, 0, 20 , 20" Margin="5, 5, 5, 0"/>
+        <Button x:Name="TimeDomainCh3SenseButton" BorderBrush="{Binding TimeDomainCh3SenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="{Binding TimeDomainCh3SenseText}" Background="{Binding TDCh3SenseButtonColor}" Grid.Column="6" Grid.ColumnSpan="8" Grid.Row="15" Margin="5, 0, 5, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+
+        <!--Row 16-->
+        <TextBlock Grid.Column="0" Grid.Row="16" Text="Interval" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+        <Border BorderBrush="{Binding FFTIntervalTBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="1" Grid.Row="16" Margin="0,5,10,5" >
+            <TextBox x:Name="FFTIntervalTB" ToolTipService.ToolTip="50-10,000" ToolTipService.Placement="Mouse"/>
+        </Border>
+        <Border BorderBrush="{Binding AccSampleRateCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="2" Grid.Row="16" Grid.ColumnSpan="2" Margin="10, 0, 10, 5">
+            <ComboBox x:Name="AccSampleRateCB" SelectedItem="{Binding Path=SelectedAccSampleRate, Mode=TwoWay}" />
+        </Border>
+        <TextBlock Grid.Column="6" Grid.Row="16" Text="+"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh3PosInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="7" Grid.Row="16" Margin="5, 0, 5, 0">
+            <ComboBox x:Name="TDCh3PosInputCB" SelectedItem="{Binding Path=SelectedTDCh3PosInput, Mode=TwoWay}" FontSize="20"/>
+        </Border>
+        <TextBlock Grid.Column="8" Grid.Row="16" Text="HPF1"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh3HPF1InputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="9" Grid.Row="16" Margin="5, 0, 5, 0">
+            <ComboBox x:Name="TDCh3HPF1InputCB" SelectedItem="{Binding Path=SelectedTDCh3HPF1Input, Mode=TwoWay}"/>
+        </Border>
+        <Button x:Name="TDCh3PowerBand0SenseButton" BorderBrush="{Binding TDCh3PowerBand0SenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="PowerBand0" Background="{Binding TDCh3PB0ButtonColor}" Grid.Column="10" Grid.ColumnSpan="2" Grid.Row="16" Margin="10, 0, 10, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Button x:Name="TDCh3PowerBand1SenseButton" BorderBrush="{Binding TDCh3PowerBand1SenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="PowerBand1" Background="{Binding TDCh3PB1ButtonColor}" Grid.Column="12" Grid.ColumnSpan="2" Grid.Row="16" Margin="10, 0, 10, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+
+        <!--Row 17-->
+        <TextBlock Grid.Column="0" Grid.Row="17" Text="Lower FFT" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+        <Border BorderBrush="{Binding FFTLowerBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="1" Grid.Row="17"  Margin="0,5,10,0" >
+            <!--<TextBox x:Name="FFTSizeBinsTB" ToolTipService.ToolTip="FFT Size Bins" ToolTipService.Placement="Mouse"/>-->
+            <ComboBox x:Name="FFTLowerInputCB" SelectedItem="{Binding Path=SelectedFFTLowerInput, Mode=TwoWay}"/>
+        </Border>
+        <TextBlock Grid.Column="8" Grid.Row="17" Text="LPF1"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh3LPF1InputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="9" Grid.Row="17" Margin="5, 0, 5, 0">
+            <ComboBox x:Name="TDCh3LPF1InputCB" SelectedItem="{Binding Path=SelectedTDCh3LPF1Input, Mode=TwoWay}"/>
+        </Border>
+        <TextBlock Grid.Column="10" Grid.Row="17" Text="Lower(Hz)" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh3PB0LowerInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="11" Grid.Row="17" Margin="5, 0, 10, 0">
+            <ComboBox x:Name="TDCh3PB0LowerInputCB" SelectedItem="{Binding Path=SelectedTDCh3PB0LowerInput, Mode=TwoWay}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </Border>
+        <TextBlock Grid.Column="12" Grid.Row="17" Text="Lower(Hz)" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh3PB1LowerInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="13" Grid.Row="17" Margin="5, 0, 10, 0">
+            <ComboBox x:Name="TDCh3PB1LowerInputCB" SelectedItem="{Binding Path=SelectedTDCh3PB1LowerInput, Mode=TwoWay}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </Border>
+
+        <!--Row 18-->
+        <TextBlock Grid.Column="0" Grid.Row="18" Text="Upper FFT" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+        <Border BorderBrush="{Binding FFTUpperBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="1" Grid.Row="18" Margin="0,5,10,0">
+            <!--<TextBox x:Name="FFTOffsetTB" ToolTipService.ToolTip="FFT Offset" ToolTipService.Placement="Mouse"/>-->
+            <ComboBox x:Name="FFTUpperInputCB" SelectedItem="{Binding Path=SelectedFFTUpperInput, Mode=TwoWay}"/>
+        </Border>
+        <TextBlock Grid.Column="6" Grid.Row="18" Text="-"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh3NegInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="7" Grid.Row="18" Margin="5, 0, 5, 0">
+            <ComboBox x:Name="TDCh3NegInputCB" SelectedItem="{Binding Path=SelectedTDCh3NegInput, Mode=TwoWay}" FontSize="20"/>
+        </Border>
+        <TextBlock Grid.Column="8" Grid.Row="18" Text="LPF2"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh3LPF2InputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="9" Grid.Row="18" Margin="5, 0, 5, 0">
+            <ComboBox x:Name="TDCh3LPF2InputCB" SelectedItem="{Binding Path=SelectedTDCh3LPF2Input, Mode=TwoWay}"/>
+        </Border>
+        <TextBlock Grid.Column="10" Grid.Row="18" Text="Upper(Hz)" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh3PB0UpperInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="11" Grid.Row="18" Margin="5, 0, 10, 0">
+            <ComboBox x:Name="TDCh3PB0UpperInputCB" SelectedItem="{Binding Path=SelectedTDCh3PB0UpperInput, Mode=TwoWay}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </Border>
+        <TextBlock Grid.Column="12" Grid.Row="18" Text="Upper(Hz)" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Border BorderBrush="{Binding TDCh3PB1UpperInputCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="13" Grid.Row="18" Margin="5, 0, 10, 0">
+            <ComboBox x:Name="TDCh3PB1UpperInputCB" SelectedItem="{Binding Path=SelectedTDCh3PB1UpperInput, Mode=TwoWay}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </Border>
+
+        <!--Row 19-->
+        <Button x:Name="WindowEnabledFFTButton" BorderBrush="{Binding WindowEnabledFFTBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False"  Content="Window Enabled" Background="{Binding WindowEnabledButtonColor}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="19" FontSize="12" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
+
+
     </Grid>
 </Window>
