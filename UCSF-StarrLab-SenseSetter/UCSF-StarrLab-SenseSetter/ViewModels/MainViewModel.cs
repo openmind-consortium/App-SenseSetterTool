@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -5114,13 +5115,24 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
         /// <returns></returns>
         public async Task SaveAsConfigButton()
         {
-            //SenseButtonEnabled = false;
+            Microsoft.Win32.SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Json files (*.json)|*.json";
+            saveFileDialog1.Title = "Save File As ...";
+            saveFileDialog1.ShowDialog();
+
+            // If the file name is not an empty string open it for saving.
+            if (saveFileDialog1.FileName != "")
+            {
+                System.IO.FileStream fs =(System.IO.FileStream)saveFileDialog1.OpenFile();
+                
+            }
+
             //IsSpinnerVisible = true;
             //await Task.Run(() => SaveConfigButton());
             //await Task.Run(() => SenseStreamOffButton());
             //await Task.Run(() => SenseStreamOnButton());
             //IsSpinnerVisible = false;
-            //SenseButtonEnabled = true;
+
         }
 
         private void ErrorMessageToUser(string errorMessage)
@@ -5357,6 +5369,7 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
             return true;
         }
         #endregion
+
         /// <summary>
         /// Event called when window is closed by user originally called in Bootstrapper upon closing
         /// </summary>
