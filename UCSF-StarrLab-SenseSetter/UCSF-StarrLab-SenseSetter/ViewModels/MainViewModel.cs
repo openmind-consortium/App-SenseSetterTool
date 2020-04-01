@@ -4914,9 +4914,9 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
 
         #region Buttons for setting and loading data
         /// <summary>
-        /// Reloads the data from the config file to the UI
+        /// Resets the data from the config file to the UI
         /// </summary>
-        public void ReloadConfigButton()
+        public void ResetConfigButton()
         {
             SenseButtonEnabled = false;
             //IsSpinnerVisible = true;
@@ -4929,6 +4929,14 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
             ClearPowerCBValuesAndCalculateNewPowerBins(senseConfigFromUI);
             //IsSpinnerVisible = false;
             SenseButtonEnabled = true;
+        }
+
+        /// <summary>
+        /// Loads the data from the config file to the UI
+        /// </summary>
+        public void LoadConfigButton()
+        {
+
         }
 
         /// <summary>
@@ -5101,10 +5109,10 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
         }
 
         /// <summary>
-        /// Saves the config to file, turns stream off if already on and then starts stream with saved config file
+        /// Saves the config to file to location specified by user
         /// </summary>
         /// <returns></returns>
-        public async Task SaveConfigStartStreamButton()
+        public async Task SaveAsConfigButton()
         {
             //SenseButtonEnabled = false;
             //IsSpinnerVisible = true;

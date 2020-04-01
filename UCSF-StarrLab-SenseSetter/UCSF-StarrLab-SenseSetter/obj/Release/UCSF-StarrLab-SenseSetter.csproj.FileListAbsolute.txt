@@ -28,3 +28,4 @@ C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-Se
 C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\obj\Release\UCSF-StarrLab-SenseSetter.csproj.CopyComplete
 C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\obj\Release\UCSF-StarrLab-SenseSetter.exe
 C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\obj\Release\UCSF-StarrLab-SenseSetter.pdb
+C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\obj\Release\UCSF-StarrLab-SenseSetter.csprojAssemblyReference.cache

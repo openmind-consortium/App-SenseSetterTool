@@ -51,14 +51,11 @@
 
         <!--Row 0-->
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding SuccessMessageInSenseSettings}" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,20,0"/>
-        <Button x:Name="SaveConfigStartStreamButton" IsEnabled="{Binding SenseButtonEnabled}" Content="Save + Update" Background="White" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="0" Margin="15, 0, 15, 3" VerticalAlignment="Center" HorizontalContentAlignment="Center" ToolTipService.ToolTip="Saves the current configuration to file, loads it up and starts streaming with that configuration" ToolTipService.Placement="Mouse"/>
         <TextBlock Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="2" Text="TD Sampling Rate" FontSize="12"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0,20,0"/>
         <Border x:Name="border_tdch0" Grid.Column="6" Grid.ColumnSpan="8" Grid.Row ="0" Grid.RowSpan="5" Background="LightGray" CornerRadius="0, 0, 20, 20" Margin="5, 5, 5, 0"/>
         <Button x:Name="TimeDomainCh0SenseButton" BorderBrush="{Binding TimeDomainCh0SenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="{Binding TimeDomainCh0SenseText}" Background="{Binding TDCh0SenseButtonColor}" Grid.Column="6" Grid.ColumnSpan="8" Grid.Row="0" Margin="5, 0, 5, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
 
         <!--Row 1-->
-        <Button x:Name="ReloadConfigButton" IsEnabled="{Binding SenseButtonEnabled}" Content="Load Original Config" Background="White" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="15, 3, 15, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center" ToolTipService.ToolTip="Reloads the most recent saved configuration or configuration upon start of application (if no save occurred since start of application)" ToolTipService.Placement="Mouse"/>
-        <Button x:Name="SaveConfigButton" IsEnabled="{Binding SenseButtonEnabled}" Content="Save" Background="White" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Margin="15, 3, 15, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center" ToolTipService.ToolTip="Saves the current configuration to file but does not start streaming with that configuration" ToolTipService.Placement="Mouse"/>
         <Border BorderBrush="{Binding TDSampleRateCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="2" Margin="20, 0, 20, 3">
             <ComboBox  x:Name="TDSampleRateCB" SelectedItem="{Binding Path=SelectedTDRate, Mode=TwoWay}"/>
         </Border>
@@ -415,6 +412,11 @@
         <!--Row 19-->
         <Button x:Name="WindowEnabledFFTButton" BorderBrush="{Binding WindowEnabledFFTBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False"  Content="Window Enabled" Background="{Binding WindowEnabledButtonColor}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="19" FontSize="12" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
 
+        <!--Row 20-->
+        <Button x:Name="ResetConfigButton" IsEnabled="{Binding SenseButtonEnabled}" Content="Reset" Background="White" Grid.Column="6" Grid.ColumnSpan="3" Grid.Row="20" Margin="15, 0, 15, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center" ToolTipService.ToolTip="Resets the most recent saved configuration or setting upon load (if no save occurred since start of application)" ToolTipService.Placement="Mouse"/>
+        <Button x:Name="LoadConfigButton" IsEnabled="{Binding SenseButtonEnabled}" Content="Open" Background="White" Grid.Column="9" Grid.ColumnSpan="2" Grid.Row="20" Margin="15, 0, 15, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center" ToolTipService.ToolTip="Opens json file for sense settings" ToolTipService.Placement="Mouse"/>
+        <Button x:Name="SaveConfigButton" IsEnabled="{Binding SenseButtonEnabled}" Content="Save" Background="White" Grid.Column="11" Grid.ColumnSpan="2" Grid.Row="20" Margin="15, 0, 15, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center" ToolTipService.ToolTip="Saves the current configuration to file location and name" ToolTipService.Placement="Mouse"/>
+        <Button x:Name="SaveAsConfigButton" IsEnabled="{Binding SenseButtonEnabled}" Content="Save As" Background="White" Grid.Column="13" Grid.ColumnSpan="2" Grid.Row="20" Margin="15, 0, 15, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center" ToolTipService.ToolTip="Saves the current configuration to file at location specified by user" ToolTipService.Placement="Mouse"/>
 
     </Grid>
 </Window>
