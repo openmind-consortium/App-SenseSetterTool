@@ -81,9 +81,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\PowerBandModel.cs" />
+    <Compile Include="Models\SchemaModel.cs" />
     <Compile Include="Models\SenseModel.cs" />
     <Compile Include="Services\CalculatePowerBins.cs" />
     <Compile Include="Services\ConfigConversions.cs" />
+    <Compile Include="Services\JSONWriterReaderValidator.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>

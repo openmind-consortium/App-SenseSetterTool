@@ -5123,7 +5123,7 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
             // If the file name is not an empty string open it for saving.
             if (saveFileDialog1.FileName != "")
             {
-                System.IO.FileStream fs =(System.IO.FileStream)saveFileDialog1.OpenFile();
+
                 
             }
 
