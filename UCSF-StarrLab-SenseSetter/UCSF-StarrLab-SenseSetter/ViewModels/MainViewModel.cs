@@ -5069,6 +5069,44 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
 
         }
 
+        public void LoadSCBSLeftButton()
+        {
+            QuickLoadSenseFiles("C:\\SCBS\\senseLeft_config.json");
+        }
+
+        public void LoadSCBSRighttButton()
+        {
+            QuickLoadSenseFiles("C:\\SCBS\\senseRight_config.json");
+        }
+
+        public void LoadAdaptiveSenseButton()
+        {
+            QuickLoadSenseFiles("C:\\AdaptiveDBS\\sense_config.json");
+        }
+
+        private void QuickLoadSenseFiles(string localFilePathForSenseFile)
+        {
+            //Get the path of specified file
+            JSONWriterReaderValidator jSONWriterReaderValidator = new JSONWriterReaderValidator(_log);
+            senseConfig = jSONWriterReaderValidator.GetSenseModelFromFile(localFilePathForSenseFile);
+            if (senseConfig.Sense == null)
+            {
+                MessageBox.Show("Sense Config could not be loaded. Please check that it exists or has the correct format", "Error", MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else
+            {
+                filePathForConfigFile = localFilePathForSenseFile;
+                SuccessMessageInSenseSettings = "Filepath: " + localFilePathForSenseFile;
+                senseConfigFromUI = Clone<SenseModel>(senseConfig);
+                PopulateComboBoxes(senseConfigFromUI);
+                LoadValuesFromSenseCongifToUI(senseConfigFromUI);
+                ResetButtonBorderColorsToDefault();
+                ResetComboboxBorderColorsToDefault();
+                ResetTextBoxBorderColorsToDefault();
+                AutoClosingMessageBox.Show("Save was successful", "Success!", 1500);
+            }
+        }
+
         private void ErrorMessageToUser(string errorMessage)
         {
             MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);

@@ -87,6 +87,7 @@
         <TextBlock Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="2" Text="TD Sampling Rate" FontSize="12"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0,20,0"/>
         <Border x:Name="border_tdch0" Grid.Column="6" Grid.ColumnSpan="8" Grid.Row ="0" Grid.RowSpan="5" Background="LightGray" CornerRadius="0, 0, 20, 20" Margin="5, 5, 5, 0"/>
         <Button x:Name="TimeDomainCh0SenseButton" BorderBrush="{Binding TimeDomainCh0SenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="{Binding TimeDomainCh0SenseText}" Background="{Binding TDCh0SenseButtonColor}" Grid.Column="6" Grid.ColumnSpan="8" Grid.Row="0" Margin="5, 0, 5, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+        <TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.Column="14" Text="Quick&#10;Load:" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0,20,0"/>
 
         <!--Row 1-->
         <Border BorderBrush="{Binding TDSampleRateCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="2" Margin="20, 0, 20, 3">
@@ -132,6 +133,8 @@
                 </ComboBox.ItemsPanel>
             </ComboBox>
         </Border>
+        <Button x:Name="LoadSCBSLeftButton" Content="Load&#10;SCBS&#10;Left" Background="White" BorderBrush="Blue" Grid.Column="14" Grid.RowSpan="3" Grid.Row="2" Margin="15, 0, 15, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center" ToolTipService.ToolTip="Opens json file for SCBS Left sense settings" ToolTipService.Placement="Mouse"/>
+
 
         <!--Row 3-->
         <Button x:Name="TimeDomainSenseButton" BorderBrush="{Binding TimeDomainSenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="Time Domain" Background="{Binding TDSenseButtonColor}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0">
@@ -176,6 +179,7 @@
         <Button x:Name="PowerStreamButton" BorderBrush="{Binding PowerStreamBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False"  Content="Power" Background="{Binding PowerStreamButtonColor}" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="5" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
         <Border x:Name="border_tdch1" Grid.Column="6" Grid.ColumnSpan="8" Grid.Row ="5" Grid.RowSpan="5" Background="LightGray" CornerRadius="0, 0, 20 , 20" Margin="5, 5, 5, 0"/>
         <Button x:Name="TimeDomainCh1SenseButton" BorderBrush="{Binding TimeDomainCh1SenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="{Binding TimeDomainCh1SenseText}" Background="{Binding TDCh1SenseButtonColor}" Grid.Column="6" Grid.ColumnSpan="8" Grid.Row="5" Margin="5, 0, 5, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Button x:Name="LoadSCBSRighttButton" Content="Load&#10;SCBS&#10;Right" Background="White" BorderBrush="Blue" Grid.Column="14" Grid.RowSpan="3" Grid.Row="5" Margin="15, 0, 15, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center" ToolTipService.ToolTip="Opens json file for SCBS Right sense settings" ToolTipService.Placement="Mouse"/>
 
         <!--Row 6-->
         <Button x:Name="LD0SenseButton" BorderBrush="{Binding LD0SenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False"  Content="LD0" Background="{Binding LD0SenseButtonColor}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="6" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
@@ -250,6 +254,7 @@
                 </ComboBox.ItemsPanel>
             </ComboBox>
         </Border>
+        <Button x:Name="LoadAdaptiveSenseButton" Content="Load&#10;aDBS&#10;Sense" Background="White" BorderBrush="Blue" Grid.Column="14" Grid.RowSpan="3" Grid.Row="8" Margin="15, 0, 15, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center" ToolTipService.ToolTip="Opens json file for SCBS Left sense settings" ToolTipService.Placement="Mouse"/>
 
         <!--Row 9-->
         <Button x:Name="LoopRecSenseButton" BorderBrush="{Binding LoopRecSenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False"  Content="Loop Recording" Background="{Binding LoopRecSenseButtonColor}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="9" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
