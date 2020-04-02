@@ -4926,7 +4926,7 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
         }
         #endregion
 
-        #region Buttons for setting and loading data
+        #region Buttons for saving and loading data
         /// <summary>
         /// Resets the data from the config file to the UI
         /// </summary>
@@ -4958,7 +4958,10 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = "c:\\";
             openFileDialog.Filter = "Json files (*.json)|*.json";
-            openFileDialog.ShowDialog();
+            if (!openFileDialog.ShowDialog() ?? false)
+            {
+                return;
+            }
 
             if (openFileDialog.FileName != "")
             {
@@ -4971,12 +4974,15 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
                 }
                 else
                 {
-                    AutoClosingMessageBox.Show("Save was successful", "Success!", 1500);
                     filePathForConfigFile = openFileDialog.FileName;
                     SuccessMessageInSenseSettings = "Filepath: " + openFileDialog.FileName;
                     senseConfigFromUI = Clone<SenseModel>(senseConfig);
                     PopulateComboBoxes(senseConfigFromUI);
                     LoadValuesFromSenseCongifToUI(senseConfigFromUI);
+                    ResetButtonBorderColorsToDefault();
+                    ResetComboboxBorderColorsToDefault();
+                    ResetTextBoxBorderColorsToDefault();
+                    AutoClosingMessageBox.Show("Save was successful", "Success!", 1500);
                 }
             }
             else
@@ -4990,167 +4996,28 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
         /// </summary>
         public void SaveConfigButton()
         {
-            //SenseButtonEnabled = false;
-            ////Check that lower FFT is lower than upper FFT
-            //if (SelectedFFTLowerInput > SelectedFFTUpperInput || (SelectedFFTLowerInput != 0 && SelectedFFTLowerInput == SelectedFFTUpperInput))
-            //{
-            //    ErrorMessageToUser("Per Medtronic, FFT upper needs to be higher than FFT lower. Please adjust Upper or Lower FFT and try again.");
-            //    return;
-            //}
-            ////Check that there is no more than 64 between upper and lower indices
-            //if (!CheckThatUpperPowerBandLessLessThanSixtyFourFromLower(TDCh0PB0LowerInputCB.IndexOf(SelectedTDCh0PB0LowerInput), TDCh0PB0UpperInputCB.IndexOf(SelectedTDCh0PB0UpperInput)))
-            //{
-            //    ErrorMessageToUser("Per Medtronic, powerbands must be closer together. Please adjust your (ch0,powerband0) upper or lower power band to create less seperation.");
-            //    return;
-            //}
-            //if (!CheckThatUpperPowerBandLessLessThanSixtyFourFromLower(TDCh0PB1LowerInputCB.IndexOf(SelectedTDCh0PB1LowerInput), TDCh0PB1UpperInputCB.IndexOf(SelectedTDCh0PB1UpperInput)))
-            //{
-            //    ErrorMessageToUser("Per Medtronic, powerbands must be closer together. Please adjust your (ch0,powerband1) upper or lower power band to create less seperation.");
-            //    return;
-            //}
-            //if (!CheckThatUpperPowerBandLessLessThanSixtyFourFromLower(TDCh1PB0LowerInputCB.IndexOf(SelectedTDCh1PB0LowerInput), TDCh1PB0UpperInputCB.IndexOf(SelectedTDCh1PB0UpperInput)))
-            //{
-            //    ErrorMessageToUser("Per Medtronic, powerbands must be closer together. Please adjust your (ch1,powerband0) upper or lower power band to create less seperation.");
-            //    return;
-            //}
-            //if (!CheckThatUpperPowerBandLessLessThanSixtyFourFromLower(TDCh1PB1LowerInputCB.IndexOf(SelectedTDCh1PB1LowerInput), TDCh1PB1UpperInputCB.IndexOf(SelectedTDCh1PB1UpperInput)))
-            //{
-            //    ErrorMessageToUser("Per Medtronic, powerbands must be closer together. Please adjust your (ch1,powerband1) upper or lower power band to create less seperation.");
-            //    return;
-            //}
-            //if (!CheckThatUpperPowerBandLessLessThanSixtyFourFromLower(TDCh2PB0LowerInputCB.IndexOf(SelectedTDCh2PB0LowerInput), TDCh2PB0UpperInputCB.IndexOf(SelectedTDCh2PB0UpperInput)))
-            //{
-            //    ErrorMessageToUser("Per Medtronic, powerbands must be closer together. Please adjust your (ch2,powerband0) upper or lower power band to create less seperation.");
-            //    return;
-            //}
-            //if (!CheckThatUpperPowerBandLessLessThanSixtyFourFromLower(TDCh2PB1LowerInputCB.IndexOf(SelectedTDCh2PB1LowerInput), TDCh2PB1UpperInputCB.IndexOf(SelectedTDCh2PB1UpperInput)))
-            //{
-            //    ErrorMessageToUser("Per Medtronic, powerbands must be closer together. Please adjust your (ch2,powerband1) upper or lower power band to create less seperation.");
-            //    return;
-            //}
-            //if (!CheckThatUpperPowerBandLessLessThanSixtyFourFromLower(TDCh3PB0LowerInputCB.IndexOf(SelectedTDCh3PB0LowerInput), TDCh3PB0UpperInputCB.IndexOf(SelectedTDCh3PB0UpperInput)))
-            //{
-            //    ErrorMessageToUser("Per Medtronic, powerbands must be closer together. Please adjust your (ch3,powerband0) upper or lower power band to create less seperation.");
-            //    return;
-            //}
-            //if (!CheckThatUpperPowerBandLessLessThanSixtyFourFromLower(TDCh3PB1LowerInputCB.IndexOf(SelectedTDCh3PB1LowerInput), TDCh3PB1UpperInputCB.IndexOf(SelectedTDCh3PB1UpperInput)))
-            //{
-            //    ErrorMessageToUser("Per Medtronic, powerbands must be closer together. Please adjust your (ch3,powerband1) upper or lower power band to create less seperation.");
-            //    return;
-            //}
+            if (!ErrorCheckBeforeSaving())
+            {
+                return;
+            }
+            //save to file
+            JSONWriterReaderValidator jSONService = new JSONWriterReaderValidator(_log);
+            if (!jSONService.WriteSenseConfigToFile(senseConfigFromUI, filePathForConfigFile))
+            {
+                ErrorMessageToUser("Error writing config to file. Please try again");
+                return;
+            }
 
-            ////Check that fft size and upper power band in range per medtronic
-            //if (!CheckThatUpperPowerBandInRangePerFFT(TDCh0PB0UpperInputCB.IndexOf(SelectedTDCh0PB0UpperInput), SelectedFFTSize))
-            //{
-            //    ErrorMessageToUser("Per Medtronic, upper powerband must be under certain number according to FFT size. Please lower (ch0,powerband0) upper power band or change FFT Size");
-            //    return;
-            //}
-            //if (!CheckThatUpperPowerBandInRangePerFFT(TDCh0PB1UpperInputCB.IndexOf(SelectedTDCh0PB1UpperInput), SelectedFFTSize))
-            //{
-            //    ErrorMessageToUser("Per Medtronic, upper powerband must be under certain number according to FFT size. Please lower (ch0,powerband1) upper power band or change FFT Size");
-            //    return;
-            //}
-            //if (!CheckThatUpperPowerBandInRangePerFFT(TDCh1PB0UpperInputCB.IndexOf(SelectedTDCh1PB0UpperInput), SelectedFFTSize))
-            //{
-            //    ErrorMessageToUser("Per Medtronic, upper powerband must be under certain number according to FFT size. Please lower (ch1,powerband0) upper power band or change FFT Size");
-            //    return;
-            //}
-            //if (!CheckThatUpperPowerBandInRangePerFFT(TDCh1PB1UpperInputCB.IndexOf(SelectedTDCh1PB1UpperInput), SelectedFFTSize))
-            //{
-            //    ErrorMessageToUser("Per Medtronic, upper powerband must be under certain number according to FFT size. Please lower (ch1,powerband1) upper power band or change FFT Size");
-            //    return;
-            //}
-            //if (!CheckThatUpperPowerBandInRangePerFFT(TDCh2PB0UpperInputCB.IndexOf(SelectedTDCh2PB0UpperInput), SelectedFFTSize))
-            //{
-            //    ErrorMessageToUser("Per Medtronic, upper powerband must be under certain number according to FFT size. Please lower (ch2,powerband0) upper power band or change FFT Size");
-            //    return;
-            //}
-            //if (!CheckThatUpperPowerBandInRangePerFFT(TDCh2PB1UpperInputCB.IndexOf(SelectedTDCh2PB1UpperInput), SelectedFFTSize))
-            //{
-            //    ErrorMessageToUser("Per Medtronic, upper powerband must be under certain number according to FFT size. Please lower (ch2,powerband1) upper power band or change FFT Size");
-            //    return;
-            //}
-            //if (!CheckThatUpperPowerBandInRangePerFFT(TDCh3PB0UpperInputCB.IndexOf(SelectedTDCh3PB0UpperInput), SelectedFFTSize))
-            //{
-            //    ErrorMessageToUser("Per Medtronic, upper powerband must be under certain number according to FFT size. Please lower (ch3,powerband0) upper power band or change FFT Size");
-            //    return;
-            //}
-            //if (!CheckThatUpperPowerBandInRangePerFFT(TDCh3PB1UpperInputCB.IndexOf(SelectedTDCh3PB1UpperInput), SelectedFFTSize))
-            //{
-            //    ErrorMessageToUser("Per Medtronic, upper powerband must be under certain number according to FFT size. Please lower (ch3,powerband1) upper power band or change FFT Size");
-            //    return;
-            //}
-
-            ////check power value lower inputs less than upper inputs
-            //if (SelectedTDCh0PB0LowerInput >= SelectedTDCh0PB0UpperInput)
-            //{
-            //    ErrorMessageToUser("TD Channel 0, Power Band 0 Lower input must be less than upper input");
-            //    return;
-            //}
-            //if (SelectedTDCh0PB1LowerInput >= SelectedTDCh0PB1UpperInput)
-            //{
-            //    ErrorMessageToUser("TD Channel 0, Power Band 1 Lower input must be less than upper input");
-            //    return;
-            //}
-            //if (SelectedTDCh1PB0LowerInput >= SelectedTDCh1PB0UpperInput)
-            //{
-            //    ErrorMessageToUser("TD Channel 1, Power Band 0 Lower input must be less than upper input");
-            //    return;
-            //}
-            //if (SelectedTDCh1PB1LowerInput >= SelectedTDCh1PB1UpperInput)
-            //{
-            //    ErrorMessageToUser("TD Channel 1, Power Band 1 Lower input must be less than upper input");
-            //    return;
-            //}
-            //if (SelectedTDCh2PB0LowerInput >= SelectedTDCh2PB0UpperInput)
-            //{
-            //    ErrorMessageToUser("TD Channel 2, Power Band 0 Lower input must be less than upper input");
-            //    return;
-            //}
-            //if (SelectedTDCh2PB1LowerInput >= SelectedTDCh2PB1UpperInput)
-            //{
-            //    ErrorMessageToUser("TD Channel 2, Power Band 1 Lower input must be less than upper input");
-            //    return;
-            //}
-            //if (SelectedTDCh3PB0LowerInput >= SelectedTDCh3PB0UpperInput)
-            //{
-            //    ErrorMessageToUser("TD Channel 3, Power Band 0 Lower input must be less than upper input");
-            //    return;
-            //}
-            //if (SelectedTDCh3PB1LowerInput >= SelectedTDCh3PB1UpperInput)
-            //{
-            //    ErrorMessageToUser("TD Channel 3, Power Band 1 Lower input must be less than upper input");
-            //    return;
-            //}
-
-            //if (!CheckPacketLoss(senseConfigFromUI))
-            //{
-            //    ErrorMessageToUser("Packet Loss over maximum. Please check config file settings and adjust to lower bandwidth to avoid major packet loss.");
-            //    return;
-            //}
-            ////save to file
-            //JSONService jSONService = new JSONService(_log);
-            //if (jSONService.WriteSenseConfigToFile(senseConfigFromUI, senseFileLocation))
-            //{
-            //    //Messages.Insert(0, DateTime.Now + ":: Success writing Sense Config to file");
-            //}
-            //else
-            //{
-            //    ErrorMessageToUser("Error writing config to file. Please try again");
-            //    return;
-            //}
-            //senseConfig = jSONService.GetSenseModelFromFile(senseFileLocation);
-            //if (senseConfig == null)
-            //{
-            //    ErrorMessageToUser("Sense Config could not be loaded. Please check that it exists or has the correct format");
-            //    return;
-            //}
-            //AutoClosingMessageBox.Show("Save was successful", "Success!", 1500);
-            //SuccessMessageInSenseSettings = "Success! " + DateTime.Now;
-            //ResetButtonBorderColorsToDefault();
-            //ResetComboboxBorderColorsToDefault();
-            //ResetTextBoxBorderColorsToDefault();
-            //SenseButtonEnabled = true;
+            senseConfig = jSONService.GetSenseModelFromFile(filePathForConfigFile);
+            if (senseConfig == null)
+            {
+                ErrorMessageToUser("Sense Config could not be loaded. Please check that it exists or has the correct format");
+                return;
+            }
+            AutoClosingMessageBox.Show("Save was successful", "Success!", 1500);
+            ResetButtonBorderColorsToDefault();
+            ResetComboboxBorderColorsToDefault();
+            ResetTextBoxBorderColorsToDefault();
             //IsSpinnerVisible = false;
         }
 
@@ -5160,10 +5027,17 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
         /// <returns></returns>
         public void SaveAsConfigButton()
         {
+            if (!ErrorCheckBeforeSaving())
+            {
+                return;
+            }
             Microsoft.Win32.SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "Json files (*.json)|*.json";
             saveFileDialog1.Title = "Save File As ...";
-            saveFileDialog1.ShowDialog();
+            if (!saveFileDialog1.ShowDialog() ?? false)
+            {
+                return;
+            }
 
             // If the file name is not an empty string open it for saving.
             if (saveFileDialog1.FileName != "")
@@ -5191,8 +5065,6 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
 
             //IsSpinnerVisible = true;
             //await Task.Run(() => SaveConfigButton());
-            //await Task.Run(() => SenseStreamOffButton());
-            //await Task.Run(() => SenseStreamOnButton());
             //IsSpinnerVisible = false;
 
         }
@@ -5200,12 +5072,152 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
         private void ErrorMessageToUser(string errorMessage)
         {
             MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            SenseButtonEnabled = true;
             //IsSpinnerVisible = false;
         }
         #endregion
 
         #region Error checks
+        private bool ErrorCheckBeforeSaving()
+        {
+            //Check that lower FFT is lower than upper FFT
+            if (SelectedFFTLowerInput > SelectedFFTUpperInput || (SelectedFFTLowerInput != 0 && SelectedFFTLowerInput == SelectedFFTUpperInput))
+            {
+                ErrorMessageToUser("Per Medtronic, FFT upper needs to be higher than FFT lower. Please adjust Upper or Lower FFT and try again.");
+                return false;
+            }
+            //Check that there is no more than 64 between upper and lower indices
+            if (!CheckThatUpperPowerBandLessLessThanSixtyFourFromLower(TDCh0PB0LowerInputCB.IndexOf(SelectedTDCh0PB0LowerInput), TDCh0PB0UpperInputCB.IndexOf(SelectedTDCh0PB0UpperInput)))
+            {
+                ErrorMessageToUser("Per Medtronic, powerbands must be closer together. Please adjust your (ch0,powerband0) upper or lower power band to create less seperation.");
+                return false;
+            }
+            if (!CheckThatUpperPowerBandLessLessThanSixtyFourFromLower(TDCh0PB1LowerInputCB.IndexOf(SelectedTDCh0PB1LowerInput), TDCh0PB1UpperInputCB.IndexOf(SelectedTDCh0PB1UpperInput)))
+            {
+                ErrorMessageToUser("Per Medtronic, powerbands must be closer together. Please adjust your (ch0,powerband1) upper or lower power band to create less seperation.");
+                return false;
+            }
+            if (!CheckThatUpperPowerBandLessLessThanSixtyFourFromLower(TDCh1PB0LowerInputCB.IndexOf(SelectedTDCh1PB0LowerInput), TDCh1PB0UpperInputCB.IndexOf(SelectedTDCh1PB0UpperInput)))
+            {
+                ErrorMessageToUser("Per Medtronic, powerbands must be closer together. Please adjust your (ch1,powerband0) upper or lower power band to create less seperation.");
+                return false;
+            }
+            if (!CheckThatUpperPowerBandLessLessThanSixtyFourFromLower(TDCh1PB1LowerInputCB.IndexOf(SelectedTDCh1PB1LowerInput), TDCh1PB1UpperInputCB.IndexOf(SelectedTDCh1PB1UpperInput)))
+            {
+                ErrorMessageToUser("Per Medtronic, powerbands must be closer together. Please adjust your (ch1,powerband1) upper or lower power band to create less seperation.");
+                return false;
+            }
+            if (!CheckThatUpperPowerBandLessLessThanSixtyFourFromLower(TDCh2PB0LowerInputCB.IndexOf(SelectedTDCh2PB0LowerInput), TDCh2PB0UpperInputCB.IndexOf(SelectedTDCh2PB0UpperInput)))
+            {
+                ErrorMessageToUser("Per Medtronic, powerbands must be closer together. Please adjust your (ch2,powerband0) upper or lower power band to create less seperation.");
+                return false;
+            }
+            if (!CheckThatUpperPowerBandLessLessThanSixtyFourFromLower(TDCh2PB1LowerInputCB.IndexOf(SelectedTDCh2PB1LowerInput), TDCh2PB1UpperInputCB.IndexOf(SelectedTDCh2PB1UpperInput)))
+            {
+                ErrorMessageToUser("Per Medtronic, powerbands must be closer together. Please adjust your (ch2,powerband1) upper or lower power band to create less seperation.");
+                return false;
+            }
+            if (!CheckThatUpperPowerBandLessLessThanSixtyFourFromLower(TDCh3PB0LowerInputCB.IndexOf(SelectedTDCh3PB0LowerInput), TDCh3PB0UpperInputCB.IndexOf(SelectedTDCh3PB0UpperInput)))
+            {
+                ErrorMessageToUser("Per Medtronic, powerbands must be closer together. Please adjust your (ch3,powerband0) upper or lower power band to create less seperation.");
+                return false;
+            }
+            if (!CheckThatUpperPowerBandLessLessThanSixtyFourFromLower(TDCh3PB1LowerInputCB.IndexOf(SelectedTDCh3PB1LowerInput), TDCh3PB1UpperInputCB.IndexOf(SelectedTDCh3PB1UpperInput)))
+            {
+                ErrorMessageToUser("Per Medtronic, powerbands must be closer together. Please adjust your (ch3,powerband1) upper or lower power band to create less seperation.");
+                return false;
+            }
+
+            //Check that fft size and upper power band in range per medtronic
+            if (!CheckThatUpperPowerBandInRangePerFFT(TDCh0PB0UpperInputCB.IndexOf(SelectedTDCh0PB0UpperInput), SelectedFFTSize))
+            {
+                ErrorMessageToUser("Per Medtronic, upper powerband must be under certain number according to FFT size. Please lower (ch0,powerband0) upper power band or change FFT Size");
+                return false;
+            }
+            if (!CheckThatUpperPowerBandInRangePerFFT(TDCh0PB1UpperInputCB.IndexOf(SelectedTDCh0PB1UpperInput), SelectedFFTSize))
+            {
+                ErrorMessageToUser("Per Medtronic, upper powerband must be under certain number according to FFT size. Please lower (ch0,powerband1) upper power band or change FFT Size");
+                return false;
+            }
+            if (!CheckThatUpperPowerBandInRangePerFFT(TDCh1PB0UpperInputCB.IndexOf(SelectedTDCh1PB0UpperInput), SelectedFFTSize))
+            {
+                ErrorMessageToUser("Per Medtronic, upper powerband must be under certain number according to FFT size. Please lower (ch1,powerband0) upper power band or change FFT Size");
+                return false;
+            }
+            if (!CheckThatUpperPowerBandInRangePerFFT(TDCh1PB1UpperInputCB.IndexOf(SelectedTDCh1PB1UpperInput), SelectedFFTSize))
+            {
+                ErrorMessageToUser("Per Medtronic, upper powerband must be under certain number according to FFT size. Please lower (ch1,powerband1) upper power band or change FFT Size");
+                return false;
+            }
+            if (!CheckThatUpperPowerBandInRangePerFFT(TDCh2PB0UpperInputCB.IndexOf(SelectedTDCh2PB0UpperInput), SelectedFFTSize))
+            {
+                ErrorMessageToUser("Per Medtronic, upper powerband must be under certain number according to FFT size. Please lower (ch2,powerband0) upper power band or change FFT Size");
+                return false;
+            }
+            if (!CheckThatUpperPowerBandInRangePerFFT(TDCh2PB1UpperInputCB.IndexOf(SelectedTDCh2PB1UpperInput), SelectedFFTSize))
+            {
+                ErrorMessageToUser("Per Medtronic, upper powerband must be under certain number according to FFT size. Please lower (ch2,powerband1) upper power band or change FFT Size");
+                return false;
+            }
+            if (!CheckThatUpperPowerBandInRangePerFFT(TDCh3PB0UpperInputCB.IndexOf(SelectedTDCh3PB0UpperInput), SelectedFFTSize))
+            {
+                ErrorMessageToUser("Per Medtronic, upper powerband must be under certain number according to FFT size. Please lower (ch3,powerband0) upper power band or change FFT Size");
+                return false;
+            }
+            if (!CheckThatUpperPowerBandInRangePerFFT(TDCh3PB1UpperInputCB.IndexOf(SelectedTDCh3PB1UpperInput), SelectedFFTSize))
+            {
+                ErrorMessageToUser("Per Medtronic, upper powerband must be under certain number according to FFT size. Please lower (ch3,powerband1) upper power band or change FFT Size");
+                return false;
+            }
+
+            //check power value lower inputs less than upper inputs
+            if (SelectedTDCh0PB0LowerInput >= SelectedTDCh0PB0UpperInput)
+            {
+                ErrorMessageToUser("TD Channel 0, Power Band 0 Lower input must be less than upper input");
+                return false;
+            }
+            if (SelectedTDCh0PB1LowerInput >= SelectedTDCh0PB1UpperInput)
+            {
+                ErrorMessageToUser("TD Channel 0, Power Band 1 Lower input must be less than upper input");
+                return false;
+            }
+            if (SelectedTDCh1PB0LowerInput >= SelectedTDCh1PB0UpperInput)
+            {
+                ErrorMessageToUser("TD Channel 1, Power Band 0 Lower input must be less than upper input");
+                return false;
+            }
+            if (SelectedTDCh1PB1LowerInput >= SelectedTDCh1PB1UpperInput)
+            {
+                ErrorMessageToUser("TD Channel 1, Power Band 1 Lower input must be less than upper input");
+                return false;
+            }
+            if (SelectedTDCh2PB0LowerInput >= SelectedTDCh2PB0UpperInput)
+            {
+                ErrorMessageToUser("TD Channel 2, Power Band 0 Lower input must be less than upper input");
+                return false;
+            }
+            if (SelectedTDCh2PB1LowerInput >= SelectedTDCh2PB1UpperInput)
+            {
+                ErrorMessageToUser("TD Channel 2, Power Band 1 Lower input must be less than upper input");
+                return false;
+            }
+            if (SelectedTDCh3PB0LowerInput >= SelectedTDCh3PB0UpperInput)
+            {
+                ErrorMessageToUser("TD Channel 3, Power Band 0 Lower input must be less than upper input");
+                return false;
+            }
+            if (SelectedTDCh3PB1LowerInput >= SelectedTDCh3PB1UpperInput)
+            {
+                ErrorMessageToUser("TD Channel 3, Power Band 1 Lower input must be less than upper input");
+                return false;
+            }
+
+            if (!CheckPacketLoss(senseConfigFromUI))
+            {
+                ErrorMessageToUser("Packet Loss over maximum. Please check config file settings and adjust to lower bandwidth to avoid major packet loss.");
+                return false;
+            }
+            return true;
+        }
         /// <summary>
         /// Messagebox that closes automatically after a certain number of seconds in milliseconds
         /// </summary>
