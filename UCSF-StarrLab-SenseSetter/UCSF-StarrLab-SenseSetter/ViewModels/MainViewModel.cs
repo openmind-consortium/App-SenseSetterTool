@@ -1767,6 +1767,18 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
 
         #region UI Bindins for Sense Settings (button borders)
         /// <summary>
+        /// Adjusts border thickness for all comboboxes in sense settings and mode ratio
+        /// </summary>
+        public int BorderThicknessForAllCB
+        {
+            get { return _borderThicknessForAllCB; }
+            set
+            {
+                _borderThicknessForAllCB = value;
+                NotifyOfPropertyChange(() => BorderThicknessForAllCB);
+            }
+        }
+        /// <summary>
         /// Binding used to change the border color for TimeDomainCh0SenseBorder
         /// </summary>
         public Brush TimeDomainCh0SenseBorder
