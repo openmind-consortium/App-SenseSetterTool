@@ -21,6 +21,7 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
         private static readonly ILog _log = LogManager.GetLog(typeof(MainViewModel));
         private SenseModel senseConfig = new SenseModel();
         private SenseModel senseConfigFromUI = new SenseModel();
+        private static string filePathForConfigFile = "";
         //Combobox for mode and ratio
         private int _borderThicknessForAllCB = 3;
         private Brush comboboxChangedBrush = Brushes.Red;
@@ -4919,17 +4920,22 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
         /// </summary>
         public void ResetConfigButton()
         {
-            SenseButtonEnabled = false;
-            //IsSpinnerVisible = true;
-            senseConfigFromUI = Clone<SenseModel>(senseConfig);
-            if (!CheckPacketLoss(senseConfigFromUI))
+            if (!String.IsNullOrEmpty(filePathForConfigFile))
             {
-                MessageBox.Show(Application.Current.MainWindow, "Packet Loss over maximum. Please check config file settings and adjust to lower bandwidth to avoid major packet loss.", "Warning", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                //IsSpinnerVisible = true;
+                senseConfigFromUI = Clone<SenseModel>(senseConfig);
+                if (!CheckPacketLoss(senseConfigFromUI))
+                {
+                    MessageBox.Show("Packet Loss over maximum. Please check config file settings and adjust to lower bandwidth to avoid major packet loss.", "Warning", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                }
+                LoadValuesFromSenseCongifToUI(senseConfigFromUI);
+                ClearPowerCBValuesAndCalculateNewPowerBins(senseConfigFromUI);
+                //IsSpinnerVisible = false;
             }
-            LoadValuesFromSenseCongifToUI(senseConfigFromUI);
-            ClearPowerCBValuesAndCalculateNewPowerBins(senseConfigFromUI);
-            //IsSpinnerVisible = false;
-            SenseButtonEnabled = true;
+            else
+            {
+                MessageBox.Show("No file opened. Please click open to open a file", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         /// <summary>
@@ -4937,7 +4943,34 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
         /// </summary>
         public void LoadConfigButton()
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = "c:\\";
+            openFileDialog.Filter = "Json files (*.json)|*.json";
+            openFileDialog.ShowDialog();
 
+            if (openFileDialog.FileName != "")
+            {
+                //Get the path of specified file
+                JSONWriterReaderValidator jSONWriterReaderValidator = new JSONWriterReaderValidator(_log);
+                senseConfig = jSONWriterReaderValidator.GetSenseModelFromFile(openFileDialog.FileName);
+                if (senseConfig.Sense == null)
+                {
+                    MessageBox.Show("Sense Config could not be loaded. Please check that it exists or has the correct format", "Error", MessageBoxButton.OK, MessageBoxImage.Stop);
+                }
+                else
+                {
+                    AutoClosingMessageBox.Show("Save was successful", "Success!", 1500);
+                    filePathForConfigFile = openFileDialog.FileName;
+                    SuccessMessageInSenseSettings = "Filepath: " + openFileDialog.FileName;
+                    senseConfigFromUI = Clone<SenseModel>(senseConfig);
+                    PopulateComboBoxes(senseConfigFromUI);
+                    LoadValuesFromSenseCongifToUI(senseConfigFromUI);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Could not open file. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         /// <summary>
@@ -5113,7 +5146,7 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
         /// Saves the config to file to location specified by user
         /// </summary>
         /// <returns></returns>
-        public async Task SaveAsConfigButton()
+        public void SaveAsConfigButton()
         {
             Microsoft.Win32.SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "Json files (*.json)|*.json";
@@ -5123,8 +5156,25 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
             // If the file name is not an empty string open it for saving.
             if (saveFileDialog1.FileName != "")
             {
-
-                
+                JSONWriterReaderValidator jSONWriterReaderValidator = new JSONWriterReaderValidator(_log);
+                if (senseConfigFromUI == null)
+                {
+                    MessageBox.Show("Cannot save empty sense file. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                if (jSONWriterReaderValidator.WriteSenseConfigToFile(senseConfigFromUI, saveFileDialog1.FileName))
+                {
+                    AutoClosingMessageBox.Show("Save was successful", "Success!", 1500);
+                    SuccessMessageInSenseSettings = "Filepath: " + saveFileDialog1.FileName;
+                }
+                else
+                {
+                    MessageBox.Show("Could not write sense file. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Must inlcude a file name to save to. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             //IsSpinnerVisible = true;
