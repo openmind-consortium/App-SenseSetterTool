@@ -4975,6 +4975,9 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
                 }
                 LoadValuesFromSenseCongifToUI(senseConfigFromUI);
                 ClearPowerCBValuesAndCalculateNewPowerBins(senseConfigFromUI);
+                ResetButtonBorderColorsToDefault();
+                ResetComboboxBorderColorsToDefault();
+                ResetTextBoxBorderColorsToDefault();
                 //IsSpinnerVisible = false;
             }
             else
@@ -5086,6 +5089,9 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
                 {
                     AutoClosingMessageBox.Show("Save was successful", "Success!", 1500);
                     SuccessMessageInSenseSettings = "Filepath: " + saveFileDialog1.FileName;
+                    ResetButtonBorderColorsToDefault();
+                    ResetComboboxBorderColorsToDefault();
+                    ResetTextBoxBorderColorsToDefault();
                 }
                 else
                 {
