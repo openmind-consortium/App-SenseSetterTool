@@ -64,7 +64,7 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
                 _tDCh2PB1UpperInputCBBorder, _fFTSizeCBBorder, _miscSampleRateCBBorder, _fFTWindowLoadCBBorder, _accSampleRateCBBorder,
                 _tDCh3PosInputCBBorder, _tDCh3HPF1InputCBBorder, _tDCh3LPF1InputCBBorder, _tDCh3PB0LowerInputCBBorder,
                 _tDCh3PB1LowerInputCBBorder, _tDCh3NegInputCBBorder, _tDCh3LPF2InputCBBorder, _tDCh3PB0UpperInputCBBorder,
-                _tDCh3PB1UpperInputCBBorder, _fFTLowerBorder, _fFTUpperBorder;
+                _tDCh3PB1UpperInputCBBorder, _fFTLowerBorder, _fFTUpperBorder, _ratioBorderColor, _modeBorderColor;
         //Int and double for combobox selected items
         private int _selectedTDRate, _selectedTDCh0PosInput, _selectedTDCh0LPF1Input, _selectedTDCh0NegInput,
                 _selectedTDCh0LPF2Input, _selectedTDCh1PosInput, _selectedTDCh1LPF1Input, _selectedTDCh1NegInput,
@@ -78,7 +78,11 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
                 _selectedTDCh3PB0LowerInput, _selectedTDCh3PB1LowerInput, _selectedTDCh3PB0UpperInput, _selectedTDCh3PB1UpperInput,
                 _selectedTDCh0HPF1Input, _selectedTDCh1HPF1Input, _selectedTDCh2HPF1Input, _selectedTDCh3HPF1Input,
                 _selectedFFTLowerInput, _selectedFFTUpperInput;
+        private ushort _selectedMode;
+        private byte _selectedRatio;
         //Combobox collections
+        private BindableCollection<ushort> _modeCB = new BindableCollection<ushort>();
+        private BindableCollection<byte> _ratioCB = new BindableCollection<byte>();
         private BindableCollection<double> _tDCh0PB0LowerInputCB = new BindableCollection<double>();
         private BindableCollection<double> _tDCh0PB1LowerInputCB = new BindableCollection<double>();
         private BindableCollection<double> _tDCh0PB0UpperInputCB = new BindableCollection<double>();
@@ -2130,6 +2134,73 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
 
         #region UI Bindings for Sense Settings (comboboxes)
         /// <summary>
+        /// Combo box drop down list for Mode for sense config
+        /// </summary>
+        public BindableCollection<ushort> ModeCB
+        {
+            get { return _modeCB; }
+            set
+            {
+                _modeCB = value;
+                NotifyOfPropertyChange(() => ModeCB);
+            }
+        }
+        /// <summary>
+        /// Binding for the actual option selected in the drop down menu for ModeCB
+        /// </summary>
+        public ushort SelectedMode
+        {
+            get { return _selectedMode; }
+            set
+            {
+                _selectedMode = value;
+                NotifyOfPropertyChange(() => SelectedMode);
+                senseConfigFromUI.Mode = SelectedMode;
+                if (SelectedMode != senseConfig.Mode)
+                {
+                    ModeBorderColor = comboboxChangedBrush;
+                }
+                else
+                {
+                    ModeBorderColor = comboboxNotChangedBrush;
+                }
+            }
+        }
+        /// <summary>
+        /// Combo box drop down list for Mode for sense config
+        /// </summary>
+        public BindableCollection<byte> RatioCB
+        {
+            get { return _ratioCB; }
+            set
+            {
+                _ratioCB = value;
+                NotifyOfPropertyChange(() => RatioCB);
+            }
+        }
+
+        /// <summary>
+        /// Binding for the actual option selected in the drop down menu for RatioCB
+        /// </summary>
+        public byte SelectedRatio
+        {
+            get { return _selectedRatio; }
+            set
+            {
+                _selectedRatio = value;
+                NotifyOfPropertyChange(() => SelectedRatio);
+                senseConfigFromUI.Ratio = SelectedRatio;
+                if (SelectedRatio != senseConfig.Ratio)
+                {
+                    RatioBorderColor = comboboxChangedBrush;
+                }
+                else
+                {
+                    RatioBorderColor = comboboxNotChangedBrush;
+                }
+            }
+        }
+        /// <summary>
         /// Combo box drop down list for sense settings for TDSampleRateCB
         /// </summary>
         public BindableCollection<int> TDSampleRateCB
@@ -3634,6 +3705,30 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
 
         #region UI Bindings for Sense Settings (combobox border colors)
         /// <summary>
+        /// Changes Mode border color so that user knows when a change from normal has occurred. 
+        /// </summary>
+        public Brush ModeBorderColor
+        {
+            get { return _modeBorderColor ?? (_modeBorderColor = comboboxNotChangedBrush); }
+            set
+            {
+                _modeBorderColor = value;
+                NotifyOfPropertyChange(() => ModeBorderColor);
+            }
+        }
+        /// <summary>
+        /// Changes ratio border color so that user knows when a change from normal has occurred.  
+        /// </summary>
+        public Brush RatioBorderColor
+        {
+            get { return _ratioBorderColor ?? (_ratioBorderColor = comboboxNotChangedBrush); }
+            set
+            {
+                _ratioBorderColor = value;
+                NotifyOfPropertyChange(() => RatioBorderColor);
+            }
+        }
+        /// <summary>
         /// Changes border color for TDSampleRateCB so that user knows when a change from normal settings has occurred. 
         /// </summary>
         public Brush TDSampleRateCBBorder
@@ -4304,6 +4399,12 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
 
         private void PopulateComboBoxes(SenseModel localSense)
         {
+            ModeCB.Add(3);
+            ModeCB.Add(4);
+            for (byte i = 1; i < 33; i++)
+            {
+                RatioCB.Add(i);
+            }
             //Time domain sample rates
             TDSampleRateCB.Add(250);
             TDSampleRateCB.Add(500);
@@ -4517,6 +4618,8 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
 
         private void LoadValuesFromSenseCongifToUI(SenseModel localSense)
         {
+            SelectedMode = localSense.Mode;
+            SelectedRatio = localSense.Ratio;
             SelectedTDRate = localSense.Sense.TDSampleRate;
             //Inputs
             SelectedTDCh0PosInput = localSense.Sense.TimeDomains[0].Inputs[0];
@@ -4873,6 +4976,8 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
 
         private void ResetComboboxBorderColorsToDefault()
         {
+            ModeBorderColor = buttonNotChangedBrush;
+            RatioBorderColor = buttonNotChangedBrush;
             TDSampleRateCBBorder = buttonNotChangedBrush;
             TDCh0PosInputCBBorder = buttonNotChangedBrush;
             TDCh0HPF1InputCBBorder = buttonNotChangedBrush;
@@ -4955,7 +5060,8 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
             TDCh1LPF2InputCB.Clear();
             TDCh2LPF2InputCB.Clear();
             TDCh3LPF2InputCB.Clear();
-
+            ModeCB.Clear();
+            RatioCB.Clear();
         }
         #endregion
 

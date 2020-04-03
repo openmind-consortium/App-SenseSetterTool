@@ -90,6 +90,15 @@
         <TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.Column="14" Text="Quick&#10;Load:" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0,20,0"/>
 
         <!--Row 1-->
+        <TextBlock Text="Mode:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+        <Border BorderBrush="{Binding ModeBorderColor}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="1" Grid.Row="1" Margin="0">
+            <ComboBox  x:Name="ModeCB" SelectedItem="{Binding Path=SelectedMode, Mode=TwoWay}" />
+        </Border>
+        <TextBlock Text="Ratio:" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+        <Border BorderBrush="{Binding RatioBorderColor}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="3" Grid.Row="1" Margin="0">
+            <ComboBox  x:Name="RatioCB" SelectedItem="{Binding Path=SelectedRatio, Mode=TwoWay}"/>
+        </Border>
+
         <Border BorderBrush="{Binding TDSampleRateCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="2" Margin="20, 0, 20, 3">
             <ComboBox  x:Name="TDSampleRateCB" SelectedItem="{Binding Path=SelectedTDRate, Mode=TwoWay}"/>
         </Border>
