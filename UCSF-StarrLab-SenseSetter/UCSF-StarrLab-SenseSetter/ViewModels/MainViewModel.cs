@@ -4924,6 +4924,39 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
             //FFTSizeBinsTBBorder = buttonNotChangedBrush;
             //FFTOffsetTBBorder = buttonNotChangedBrush;
         }
+
+        private void ResetComboboxValues()
+        {
+            TDSampleRateCB.Clear();
+            FFTChannelCB.Clear();
+            FFTSizeCB.Clear();
+            FFTWindowLoadCB.Clear();
+            FFTLowerInputCB.Clear();
+            FFTUpperInputCB.Clear();
+            AccSampleRateCB.Clear();
+            MiscSampleRateCB.Clear();
+            TDCh0PosInputCB.Clear();
+            TDCh1PosInputCB.Clear();
+            TDCh2PosInputCB.Clear();
+            TDCh3PosInputCB.Clear();
+            TDCh0NegInputCB.Clear();
+            TDCh1NegInputCB.Clear();
+            TDCh2NegInputCB.Clear();
+            TDCh3NegInputCB.Clear();
+            TDCh0HPF1InputCB.Clear();
+            TDCh1HPF1InputCB.Clear();
+            TDCh02HPF1InputCB.Clear();
+            TDCh3HPF1InputCB.Clear();
+            TDCh0LPF1InputCB.Clear();
+            TDCh1LPF1InputCB.Clear();
+            TDCh2LPF1InputCB.Clear();
+            TDCh3LPF1InputCB.Clear();
+            TDCh0LPF2InputCB.Clear();
+            TDCh1LPF2InputCB.Clear();
+            TDCh2LPF2InputCB.Clear();
+            TDCh3LPF2InputCB.Clear();
+
+        }
         #endregion
 
         #region Buttons for saving and loading data
@@ -4977,6 +5010,7 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
                     filePathForConfigFile = openFileDialog.FileName;
                     SuccessMessageInSenseSettings = "Filepath: " + openFileDialog.FileName;
                     senseConfigFromUI = Clone<SenseModel>(senseConfig);
+                    ResetComboboxValues();
                     PopulateComboBoxes(senseConfigFromUI);
                     LoadValuesFromSenseCongifToUI(senseConfigFromUI);
                     ResetButtonBorderColorsToDefault();
@@ -5095,9 +5129,11 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
             }
             else
             {
+                
                 filePathForConfigFile = localFilePathForSenseFile;
                 SuccessMessageInSenseSettings = "Filepath: " + localFilePathForSenseFile;
                 senseConfigFromUI = Clone<SenseModel>(senseConfig);
+                ResetComboboxValues();
                 PopulateComboBoxes(senseConfigFromUI);
                 LoadValuesFromSenseCongifToUI(senseConfigFromUI);
                 ResetButtonBorderColorsToDefault();
