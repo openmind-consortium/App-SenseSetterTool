@@ -5123,7 +5123,11 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
             //Get the path of specified file
             JSONWriterReaderValidator jSONWriterReaderValidator = new JSONWriterReaderValidator(_log);
             senseConfig = jSONWriterReaderValidator.GetSenseModelFromFile(localFilePathForSenseFile);
-            if (senseConfig.Sense == null)
+            if (senseConfig == null)
+            {
+                MessageBox.Show("Sense Config could not be loaded. Please check that it exists or has the correct format", "Error", MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+            else if(senseConfig.Sense == null)
             {
                 MessageBox.Show("Sense Config could not be loaded. Please check that it exists or has the correct format", "Error", MessageBoxButton.OK, MessageBoxImage.Stop);
             }
@@ -5139,7 +5143,7 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
                 ResetButtonBorderColorsToDefault();
                 ResetComboboxBorderColorsToDefault();
                 ResetTextBoxBorderColorsToDefault();
-                AutoClosingMessageBox.Show("Save was successful", "Success!", 1500);
+                AutoClosingMessageBox.Show("Load was successful", "Success!", 1500);
             }
         }
 
