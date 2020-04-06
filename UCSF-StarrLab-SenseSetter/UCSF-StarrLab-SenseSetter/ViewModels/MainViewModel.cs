@@ -5125,7 +5125,7 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
                     ResetButtonBorderColorsToDefault();
                     ResetComboboxBorderColorsToDefault();
                     ResetTextBoxBorderColorsToDefault();
-                    AutoClosingMessageBox.Show("Save was successful", "Success!", 1500);
+                    AutoClosingMessageBox.Show("File opened successfully", "Success!", 1500);
                 }
             }
             else
@@ -5255,7 +5255,7 @@ namespace UCSF_StarrLab_SenseSetter.ViewModels
                 ResetButtonBorderColorsToDefault();
                 ResetComboboxBorderColorsToDefault();
                 ResetTextBoxBorderColorsToDefault();
-                AutoClosingMessageBox.Show("Load was successful", "Success!", 1500);
+                AutoClosingMessageBox.Show("File opened successfully", "Success!", 1500);
             }
         }
 
