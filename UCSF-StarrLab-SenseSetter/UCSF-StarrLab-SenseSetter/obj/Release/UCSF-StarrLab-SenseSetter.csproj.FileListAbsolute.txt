@@ -1,15 +1,12 @@
 C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\bin\Release\UCSF-StarrLab-SenseSetter.exe.config
 C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\bin\Release\UCSF-StarrLab-SenseSetter.exe
 C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\bin\Release\UCSF-StarrLab-SenseSetter.pdb
-C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\bin\Release\AutoUpdater.NET.dll
 C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\bin\Release\Caliburn.Micro.dll
 C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\bin\Release\Caliburn.Micro.Platform.Core.dll
 C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\bin\Release\Caliburn.Micro.Platform.dll
 C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\bin\Release\Newtonsoft.Json.dll
 C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\bin\Release\Newtonsoft.Json.Schema.dll
 C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\bin\Release\System.Windows.Interactivity.dll
-C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\bin\Release\AutoUpdater.NET.pdb
-C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\bin\Release\AutoUpdater.NET.xml
 C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\bin\Release\Caliburn.Micro.xml
 C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\bin\Release\Caliburn.Micro.Platform.xml
 C:\Users\mrran\Documents\git_projects\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\UCSF-StarrLab-SenseSetter\bin\Release\Caliburn.Micro.Platform.Core.xml
