@@ -315,6 +315,7 @@
                 </ComboBox.ItemsPanel>
             </ComboBox>
         </Border>
+        <TextBlock Grid.Column="14" Grid.Row="12" Text="Button&#10;Color&#10;Key:" Grid.RowSpan="2" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
 
         <!--Row 13-->
         <TextBlock Grid.Column="0" Grid.Row="13" Text="Channel" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
@@ -357,10 +358,12 @@
             <ComboBox x:Name="FFTSizeCB" SelectedItem="{Binding Path=SelectedFFTSize, Mode=TwoWay}"/>
         </Border>
         <Button x:Name="AccelOnOffButton" BorderBrush="{Binding AccelOnOffBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="Accelerometry" Background="{Binding AccelOnOffButtonColor}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="14" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="10, 0, 10, 0"/>
-        <TextBlock Grid.Column="4" Grid.Row="14" Text="Stream &#10;Rate(ms)" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+        <TextBlock Grid.Column="4" Grid.Row="14" Text="Stream&#10;Rate(ms)" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
         <Border BorderBrush="{Binding MiscSampleRateCBBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Grid.Column="5" Grid.Row="14" Margin="5, 0, 10, 0">
             <ComboBox x:Name="MiscSampleRateCB" SelectedItem="{Binding Path=SelectedMiscSampleRate, Mode=TwoWay}"/>
         </Border>
+        <TextBlock Grid.Column="14" Grid.Row="14" HorizontalAlignment="Center" VerticalAlignment="Center" Text="   On   " Background="Gray" />
+
 
         <!--Row 15-->
         <TextBlock Grid.Column="0" Grid.Row="15" Text="Win load(%)" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
@@ -370,6 +373,7 @@
         <TextBlock Grid.Column="2" Grid.Row="15" Grid.ColumnSpan="2" Text="Sample Rate" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
         <Border x:Name="border_tdch3" Grid.Column="6" Grid.ColumnSpan="8" Grid.Row ="15" Grid.RowSpan="5" Background="LightGray" CornerRadius="0, 0, 20 , 20" Margin="5, 5, 5, 0"/>
         <Button x:Name="TimeDomainCh3SenseButton" BorderBrush="{Binding TimeDomainCh3SenseBorder}" BorderThickness="{Binding BorderThicknessForAllCB}" Focusable="False" Content="{Binding TimeDomainCh3SenseText}" Background="{Binding TDCh3SenseButtonColor}" Grid.Column="6" Grid.ColumnSpan="8" Grid.Row="15" Margin="5, 0, 5, 0" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+        <TextBlock Grid.Column="14" Grid.Row="15" HorizontalAlignment="Center" VerticalAlignment="Center" Text="   Off   " Background="White" />
 
         <!--Row 16-->
         <TextBlock Grid.Column="0" Grid.Row="16" Text="Interval" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
