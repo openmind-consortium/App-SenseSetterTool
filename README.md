@@ -1,6 +1,11 @@
 # UCSF-StarrLab-SenseSetter
 GUI application that loads and saves sense settings for the RC+S
 
+## Video Tutorial
+[Setup and Walkthrough of Sense Setter](https://ucsf.box.com/s/nrxgdms322br15eg08hqsp2blk2grc5y)
+
+## Overview
+
 ![](Images/senseSetter.PNG)
 
 SenseSetter allows you to change the sense settings for the Medtronic RC+S. This will be saved to a .json format file that can be used to upload into your code for the sensing configuration. The .json file saves into this format: 
